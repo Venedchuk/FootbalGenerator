@@ -43,13 +43,13 @@ namespace OperationWithTeams
         [DataMember]
         public string NameTour { get; set; }
         [DataMember]
-        public Guid ChampionshipId { get; set; }
+        public Guid SeasonId { get; set; }
         [DataMember]
         public List<SimpleMatch> Matches { get; set; }
     }
 
     [DataContract]
-    public class SimpleChampionship
+    public class SimpleSeason
     {
         [DataMember]
         public Guid Id { get; set; }
@@ -57,8 +57,6 @@ namespace OperationWithTeams
         [DataMember]
         public string Name { get; set; }
 
-        [DataMember]
-        public DateTime Year { get; set; }
 
         [DataMember]
         public List<Guid> TourGuids { get; set; }

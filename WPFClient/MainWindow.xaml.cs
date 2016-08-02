@@ -23,7 +23,7 @@ namespace WPFClient
             
         }
 
-        public void TableResult(Guid ChampGuid)
+        public void TableResult(Guid SeasonGuid)
         {
             dataGrid.Items.Clear();
             dataGrid.Columns.Clear();
@@ -31,7 +31,7 @@ namespace WPFClient
             var dc = DataContext as MainWindowViewModel;
             var helper = new TeamDataGridHelper(dataGrid);
             
-            var teams = MainWindowViewModel.channel.TeamGetFromChamp(ChampGuid);             //here
+            var teams = MainWindowViewModel.channel.TeamGetFromSeason(SeasonGuid);             //here
 
             var col = new DataGridTextColumn();
             col.Header = "Team";
@@ -52,7 +52,7 @@ namespace WPFClient
             helper.AddTeams(teams);
 
 
-            var table = MainWindowViewModel.channel.GetAllMatches(ChampGuid);
+            var table = MainWindowViewModel.channel.GetAllMatches(SeasonGuid);
             foreach (var match in table)
             {
                 foreach (var t1 in teams)
@@ -135,7 +135,7 @@ namespace WPFClient
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             var dc = DataContext as MainWindowViewModel;
-            TableResult(dc.SelectedChampionship.Id);
+            TableResult(dc.SelectedSeasons.Id);
         }
     }
     public class TeamForGrid

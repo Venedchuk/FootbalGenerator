@@ -62,13 +62,13 @@
         </Button>
 
 
-        <ComboBox x:Name="Championships"
+        <ComboBox x:Name="Season"
                   Width="120"
                   Margin="10,58,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
-                  ItemsSource="{Binding Path=Champs}"
-                  SelectedItem="{Binding Path=SelectedChampionship}">
+                  ItemsSource="{Binding Path=Seasons}"
+                  SelectedItem="{Binding Path=SelectedSeasons}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -124,7 +124,7 @@
                   Margin="82,165,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
-                  ItemsSource="{Binding Path=SelectedChampionship.Tours}"
+                  ItemsSource="{Binding Path=SelectedSeasons.Tours}"
                   SelectedItemChanged="TreeView1_OnSelectedItemChanged">
 
             <TreeView.Resources>

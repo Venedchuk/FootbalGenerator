@@ -30,7 +30,7 @@ namespace Server
         public DbSet<Player> Players { get; set; }
 
         public DbSet<Match> Matches { get; set; }
-        public DbSet<Championship> Championships { get; set; }
+        public DbSet<Season> Seasons { get; set; }
         public DbSet<Tour> Tours { get; set; }
         public DbSet<Result> Results { get; set; }
         public DbSet<Goal> Goals { get; set; }

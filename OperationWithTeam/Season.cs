@@ -9,7 +9,7 @@ namespace OperationWithTeams
 
 
     [DataContract]
-    public class Championship
+    public class Season
     {
         [DataMember]
         public Guid Id { get; set; }
@@ -17,8 +17,6 @@ namespace OperationWithTeams
         [DataMember]
         public string Name { get; set; }
 
-        [DataMember]
-        public DateTime Year { get; set; }
 
         [DataMember]
         public virtual List<Tour> Tours { get; set; }
@@ -37,7 +35,7 @@ namespace OperationWithTeams
         public Guid TeamGuid { get; set; }
 
         [DataMember]
-        public virtual Championship Championship { get; set; }
+        public virtual Season Season { get; set; }
 
     }
 
@@ -51,7 +49,7 @@ namespace OperationWithTeams
         [DataMember]
         public string NameTour { get; set; }
         [DataMember]
-        public virtual Championship Championship { get; set; }
+        public virtual Season Season { get; set; }
         [DataMember]
         public virtual List<Match> Matches { get; set; }
     }

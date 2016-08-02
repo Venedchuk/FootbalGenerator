@@ -49,15 +49,14 @@ namespace WPFClient.Models
 
         public string NameTour { get; set; }
 
-        public Guid  ChampionshipId { get; set; }
+        public Guid  SeasonId { get; set; }
 
         public ObservableCollection<SimpleMatchClient> Matches { get; set; }
     }
-    public class SimpleChampionshipClient : ObservableObject
+    public class SimpleSeasonsClient : ObservableObject
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public DateTime Year { get; set; }
         public ObservableCollection<SimpleTourClient> Tours { get; set; }
     }
 }

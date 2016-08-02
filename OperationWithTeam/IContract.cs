@@ -25,10 +25,10 @@ namespace OperationWithTeams
         void AddTeam(Team team,List<Player> players);
 
         [OperationContract]
-        void AddChampionship(Championship champ);
+        void AddSeason(Season season);
 
         [OperationContract]
-        void RemoveChamp(Guid champGuid);
+        void RemoveSeason(Guid seasonGuid);
 
         [OperationContract]
         void StopServer();
@@ -43,31 +43,31 @@ namespace OperationWithTeams
         void AddPlayer(Guid id, Player player);
 
         [OperationContract]
-        void AddTour(Tour tourForOperation, Guid champId,List<Match> matches );
+        void AddTour(Tour tourForOperation, Guid seasonId,List<Match> matches );
 
         [OperationContract]
         void AddMatchGoal(Guid matchGuid, byte goalTeam1, byte goalTeam2);
 
         [OperationContract]
-        List<SimpleMatch> GetAllMatches(Guid champGuid);
+        List<SimpleMatch> GetAllMatches(Guid seasonGuid);
 
         [OperationContract]
-        void TeamAddToChamp(Guid champId,Guid teamId);
+        void TeamAddToSeason(Guid seasonId,Guid teamId);
         [OperationContract]
-        List<SimpleTeam> TeamGetFromChamp(Guid champId);
+        List<SimpleTeam> TeamGetFromSeason(Guid seasonId);
 
         [OperationContract]
         void ChangeMatch(SimpleMatch match);
 
         [OperationContract]
-        List<SimpleTour> GetAllTours(Guid championshipGuid);
+        List<SimpleTour> GetAllTours(Guid seasonGuid);
 
 
         [OperationContract]
         List<SimpleMatch> GetMatches(Guid tourGuid);
 
         [OperationContract]
-        List<SimpleChampionship> GetChampionships();
+        List<SimpleSeason> GetSeasons();
 
 
     }

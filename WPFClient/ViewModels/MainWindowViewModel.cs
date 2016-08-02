@@ -21,7 +21,7 @@ namespace WPFClient
       //  private List<Match> globalContainerMatches = new List<Match>();
         private List<Match> container = new List<Match>();
         private List<Match> _containerTour = new List<Match>();
-        public ObservableCollection<SimpleChampionshipClient> Champs { get; set; }
+        public ObservableCollection<SimpleSeasonsClient> Seasons { get; set; }
         public ObservableCollection<SimpleTourClient> Tours { get; set; }
         public ObservableCollection<SimpleTeam> TeamsToGenerate { get; set; }
         public ObservableCollection<SimpleTeam> Teams { get; set; }
@@ -38,58 +38,58 @@ namespace WPFClient
             var binding = new BasicHttpBinding();
             var factory = new ChannelFactory<IContract>(binding, new EndpointAddress(adress));
             channel = factory.CreateChannel();
-            Champs = new ObservableCollection<SimpleChampionshipClient>();
+            Seasons = new ObservableCollection<SimpleSeasonsClient>();
            
             TeamsToGenerate = new ObservableCollection<SimpleTeam>();
             Teams = new ObservableCollection<SimpleTeam>(channel.GetAllTeam());
             SelectedTeam = new SimpleTeam();
             SelectedTeamToGenerate = new SimpleTeam();
             Tours = new ObservableCollection<SimpleTourClient>();
-            Champs = GetAllChamp();
-            //SelectedChampionship = Champs[0];
+            Seasons = GetAllSeasons();
+            //SelectedSeasons = Seasons[0];
             dataGrid = new DataGrid();
             dataGridPoint = new DataGrid();
         }
 
         private void MainWindowViewModelConstructor()
         {
-            Champs.Clear();
-            Champs = GetAllChamp();
+            Seasons.Clear();
+            Seasons = GetAllSeasons();
 
         }
 
 
 
-        private SimpleChampionshipClient _selectedChampionshipClient;
+        private SimpleSeasonsClient _selectedSeasonsClient;
 
-        public SimpleChampionshipClient SelectedChampionship
+        public SimpleSeasonsClient SelectedSeasons
         {
             get
             {
-                return _selectedChampionshipClient;
+                return _selectedSeasonsClient;
             }
             set
             {
-                if (_selectedChampionshipClient == value) return;
+                if (_selectedSeasonsClient == value) return;
                 
-                _selectedChampionshipClient = value;
+                _selectedSeasonsClient = value;
 
                 
-                RaisePropertyChanged("SelectedChampionship");
+                RaisePropertyChanged("SelectedSeasons");
             }
             
         }
 
 
 
-        private ObservableCollection<SimpleChampionshipClient> GetAllChamp()
+        private ObservableCollection<SimpleSeasonsClient> GetAllSeasons()
         {
             
-            var champs = channel.GetChampionships();
+            var seasons = channel.GetSeasons();
 
-            foreach (var itemChamp in champs)
+            foreach (var itemSeason in seasons)
             {
-                var toursToConvert = channel.GetAllTours(itemChamp.Id);
+                var toursToConvert = channel.GetAllTours(itemSeason.Id);
                 Tours = new ObservableCollection<SimpleTourClient>();
 
 
@@ -117,7 +117,7 @@ namespace WPFClient
                     }
                     var tourinfo = new SimpleTourClient()
                     {
-                        ChampionshipId = item.ChampionshipId,
+                        SeasonId = item.SeasonId,
                         Id = item.Id,
                         NameTour = item.NameTour,
                         Matches = tourMatchesToAdd
@@ -127,16 +127,15 @@ namespace WPFClient
                 }
                 
 
-                Champs.Add(new SimpleChampionshipClient()
+                Seasons.Add(new SimpleSeasonsClient()
                 {
-                    Id = itemChamp.Id,
+                    Id = itemSeason.Id,
                     Tours = Tours,
-                    Name = itemChamp.Name,
-                    Year = itemChamp.Year
+                    Name = itemSeason.Name,
                 });
                 
             }
-            return Champs;
+            return Seasons;
         }
 
         private SimpleMatchClient _selectedMatch;
@@ -244,17 +243,17 @@ namespace WPFClient
                 return _generateTour ?? (_generateTour = new RelayCommand(() =>
                 {
                    
-                    GoGenerate(SelectedChampionship.Id);
+                    GoGenerate(SelectedSeasons.Id);
 
 
                 }
                 , () =>TeamsToGenerate.Count>1));
 
-                // SelectedChampionship.Tours.Count == 0 && 
+                // SelectedSeasons.Tours.Count == 0 && 
             }
         }
 
-        private void GoGenerate(Guid champId)
+        private void GoGenerate(Guid seasonId)
         {
             _countMatches = 0;
             var tour = 0;
@@ -265,12 +264,12 @@ namespace WPFClient
             {
                 foreach (var item in teams)
                 {
-                    channel.TeamAddToChamp(champId,item.Id);
+                    channel.TeamAddToSeason(seasonId,item.Id);
                 }
 
 
                 Console.WriteLine("-------------Start generation Matches------------");
-                Console.WriteLine("Generetion for :"+SelectedChampionship.Name);
+                Console.WriteLine("Generetion for :"+SelectedSeasons.Name);
                 var rnd = new Random();
 
                 var teamWithKeys = new Dictionary<Team, List<bool>>();
@@ -381,7 +380,7 @@ namespace WPFClient
                 };
 
 
-                channel.AddTour(tourser, SelectedChampionship.Id, _containerTour);
+                channel.AddTour(tourser, SelectedSeasons.Id, _containerTour);
 
                 MainWindowViewModelConstructor();
                 return;
@@ -395,7 +394,7 @@ namespace WPFClient
                 };
 
                 
-                channel.AddTour(tourser,SelectedChampionship.Id,_containerTour);
+                channel.AddTour(tourser,SelectedSeasons.Id,_containerTour);
                 FirstTour(teamWithKeys, tourCounter);
             }
         }

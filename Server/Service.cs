@@ -12,20 +12,20 @@ namespace Server
 {
     public class Service : IContract
     {
-        public void TeamAddToChamp(Guid champId, Guid teamId)
+        public void TeamAddToSeason(Guid seasonId, Guid teamId)
         {
 
             using (var db = new ConnectToDb())
             {
-                foreach (var item in db.Championships)
+                foreach (var item in db.Seasons)
                 {
                     item.TeamGuids = new List<TeamList>();
-                    if (item.Id == champId)
+                    if (item.Id == seasonId)
                     {
                         item.TeamGuids.Add(new TeamList()
                         {
                             TeamGuid = teamId,
-                            Championship = item,
+                            Season = item,
                             Id = Guid.NewGuid()
                         });
                     }
@@ -36,15 +36,15 @@ namespace Server
 
         }
 
-        public List<SimpleTeam> TeamGetFromChamp(Guid champId)
+        public List<SimpleTeam> TeamGetFromSeason(Guid seasonId)
         {
             var teamsToReturn = new List<SimpleTeam>();
             var teamsid = new List<Guid>();
             using (var db = new ConnectToDb())
             {
-                foreach (var teamListItem in db.TeamLists.Include(x=>x.Championship))
+                foreach (var teamListItem in db.TeamLists.Include(x=>x.Season))
                 {
-                    if (teamListItem.Championship.Id==champId)
+                    if (teamListItem.Season.Id==seasonId)
                     {
                         teamsid.Add(teamListItem.TeamGuid);
                     }
@@ -274,14 +274,14 @@ namespace Server
             }
         }
 
-        public void AddTour(Tour tour, Guid champId, List<Match> matches)
+        public void AddTour(Tour tour, Guid seasonId, List<Match> matches)
         {
             Console.WriteLine("Used method AddTour");
 
 
             using (var db = new ConnectToDb())
             {
-                tour.Championship = db.Championships.ToList().Find(x => x.Id == champId);
+                tour.Season = db.Seasons.ToList().Find(x => x.Id == seasonId);
                 tour.Id = Guid.NewGuid();
                 tour.Matches = matches;
                 for (var i = 0; i < matches.Count; i++)
@@ -307,13 +307,13 @@ namespace Server
             }
         }
 
-        public void AddChampionship(Championship champ)
+        public void AddSeason(Season season)
         {
-            champ.Id = Guid.NewGuid();
-           // champ.Tours = new List<Tour>();
+            season.Id = Guid.NewGuid();
+           // season.Tours = new List<Tour>();
             using (var db = new ConnectToDb())
             {
-                db.Championships.Add(champ);
+                db.Seasons.Add(season);
 
                 
                     db.SaveChanges();
@@ -323,23 +323,23 @@ namespace Server
             }
         }
 
-        public void RemoveChamp(Guid champGuid)
+        public void RemoveSeason(Guid seasonGuid)
         {
 
             var matchesToDelete = new List<Match>();
             var tourToDelete = new List<Tour>();
             var teamListToDelete = new List<TeamList>();
-            var champ = new Championship();
+            var season = new Season();
             using (var db = new ConnectToDb())
             {
-                foreach (var item in db.Championships)
+                foreach (var item in db.Seasons)
                 {
-                    if (item.Id == champGuid)
+                    if (item.Id == seasonGuid)
                     {
-                        champ = item;
-                        foreach (var tour in db.Tours.Include(x=>x.Championship))
+                        season = item;
+                        foreach (var tour in db.Tours.Include(x=>x.Season))
                         {
-                            if (tour.Championship.Id == item.Id)
+                            if (tour.Season.Id == item.Id)
                             {
                                 
                                 try
@@ -368,8 +368,8 @@ namespace Server
                         }
 
 
-                        teamListToDelete.AddRange(db.TeamLists.Where(teamItem => teamItem.Championship.Id == item.Id));
-                        Console.WriteLine("Champ " + item.Name + " removed");
+                        teamListToDelete.AddRange(db.TeamLists.Where(teamItem => teamItem.Season.Id == item.Id));
+                        Console.WriteLine("Season " + item.Name + " removed");
                         break;
                     }
                     
@@ -378,7 +378,7 @@ namespace Server
                 db.Matches.RemoveRange(matchesToDelete);
                 db.Tours.RemoveRange(tourToDelete);
                 db.TeamLists.RemoveRange(teamListToDelete);
-                db.Championships.Remove(champ);
+                db.Seasons.Remove(season);
 
                     db.SaveChanges();
                    
@@ -408,7 +408,7 @@ namespace Server
 
         }
 
-        public List<SimpleMatch> GetAllMatches(Guid champGuid)
+        public List<SimpleMatch> GetAllMatches(Guid seasonGuid)
         {
             Console.WriteLine("Get All Matches");
             using (var db = new ConnectToDb())
@@ -419,9 +419,9 @@ namespace Server
                 var matchesToReturn = new List<SimpleMatch>();
                 foreach (
                     var item in
-                        matches.Include(x => x.Home).Include(x => x.Guest).Include(x => x.Result).Include(x => x.Tour).Include(x =>x.Tour.Championship))
+                        matches.Include(x => x.Home).Include(x => x.Guest).Include(x => x.Result).Include(x => x.Tour).Include(x =>x.Tour.Season))
                 {
-                    if (item.Tour.Championship.Id == champGuid)
+                    if (item.Tour.Season.Id == seasonGuid)
                     {
                         var match = new SimpleMatch() {Id = item.Id, Home = item.Home.Name, Guest = item.Guest.Name};
                         //  match.Id = item.Id;
@@ -484,23 +484,23 @@ namespace Server
             }
         }
 
-        public List<SimpleTour> GetAllTours(Guid champinshipGuid)
+        public List<SimpleTour> GetAllTours(Guid seasonGuid)
         {
             using (var db = new ConnectToDb())
             {
-                var tours = db.Tours.Include(x=>x.Championship).ToList();
+                var tours = db.Tours.Include(x=>x.Season).ToList();
                 var toursToReturn = new List<SimpleTour>();
                 foreach (var item in tours)
                 {
-                    if(item.Championship==null)continue;
-                    if (item.Championship.Id == champinshipGuid)
+                    if(item.Season==null)continue;
+                    if (item.Season.Id == seasonGuid)
                     {
 
 
                         var tour = new SimpleTour()
                         {
                             Id = item.Id,
-                            ChampionshipId = item.Championship.Id,
+                            SeasonId = item.Season.Id,
                             NameTour = item.NameTour
                         };
                         toursToReturn.Add(tour);
@@ -556,7 +556,7 @@ namespace Server
 
         }
 
-        public List<SimpleChampionship> GetChampionships()
+        public List<SimpleSeason> GetSeasons()
         {
             Console.WriteLine("Get All Matches");
            
@@ -564,30 +564,29 @@ namespace Server
             {
                 try
                 {
-                    db.Championships.Include(x => x.Tours).ToList();
+                    db.Seasons.Include(x => x.Tours).ToList();
                 }
                 catch (Exception)
                 {
 
-                    return new List<SimpleChampionship>();
+                    return new List<SimpleSeason>();
                 }
                
-                var сhampToReturn = new List<SimpleChampionship>();
-                foreach (var item in db.Championships.Include(x => x.Tours).ToList())
+                var сhampToReturn = new List<SimpleSeason>();
+                foreach (var item in db.Seasons.Include(x => x.Tours).ToList())
                 {
                     var listTour = new List<Guid>();
                     foreach (var itm in item.Tours)
                     {
                         listTour.Add(itm.Id);
                     }
-                    var champ = new SimpleChampionship()
+                    var season = new SimpleSeason()
                     {
                         Name = item.Name,
                         Id = item.Id,
-                        Year = item.Year,
                         TourGuids = listTour
                     };
-                    сhampToReturn.Add(champ);
+                    сhampToReturn.Add(season);
                 }
                 return сhampToReturn;
 

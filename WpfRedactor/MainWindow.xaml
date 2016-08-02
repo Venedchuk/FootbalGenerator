@@ -31,7 +31,7 @@
                            Margin="10,0,0,0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
-                           Content="Add Champ"
+                           Content="Add Season"
                            FontFamily="Segoe Print" />
                     <nmsp:TextBoxWithClear x:Name="TextBox"
                                            Width="123"
@@ -39,22 +39,17 @@
                                            Margin="10,48,0,0"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top"
-                                           Text="{Binding AddChampName}"
+                                           Text="{Binding AddSeasonName}"
                                            TextWrapping="Wrap" />
                 </Grid>
-                <DatePicker Width="120"
-                            Height="27"
-                            Margin="23,113,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            SelectedDate="{Binding AddChampDate}" />
+
                 <Button x:Name="Button"
                         Width="69"
                         Height="24"
                         Margin="10,162,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Command="{Binding AddChamp}"
+                        Command="{Binding AddSeason}"
                         Content="Save" />
                 <Label x:Name="AddTeaminfo"
                        Width="200"
@@ -62,7 +57,7 @@
                        Margin="0,191,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       Content="{Binding AddChampInfo}"
+                       Content="{Binding AddSeasonInfo}"
                        FontFamily="Segoe Print"
                        Foreground="#FFFF0B0B" />
             </Grid>
@@ -104,8 +99,8 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>
-                                <TextBlock FontWeight="Bold" Text="{Binding Name}" />
                                 <Image Height="20" Source="{Binding Path=LogoTeam}" />
+                                <TextBlock FontWeight="Bold" Text="{Binding Name}" />
                             </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -238,15 +233,12 @@
                   Margin="10,264,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
-                  ItemsSource="{Binding Champs}"
-                  SelectedItem="{Binding SelectedChamp}">
+                  ItemsSource="{Binding Seasons}"
+                  SelectedItem="{Binding SelectedSeason}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel>
                         <TextBlock FontWeight="Bold" Text="{Binding Name}" />
-                        <TextBlock Text=" (" />
-                        <TextBlock Text="{Binding Year.Year}" />
-                        <TextBlock Text=")" />
                     </WrapPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -259,13 +251,13 @@
                 VerticalAlignment="Top"
                 Command="{Binding DeletePlayer}"
                 Content="DeletePlayer" />
-        <Button x:Name="ButtonDeleteChamp"
+        <Button x:Name="ButtonDeleteSeason"
                 Width="75"
                 Margin="10,455,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Command="{Binding DeleteChamp}"
-                Content="delete champ" />
+                Command="{Binding DeleteSeason}"
+                Content="delete season" />
         <Button x:Name="button"
                 Width="74"
                 Margin="442,222,0,0"
@@ -273,12 +265,12 @@
                 VerticalAlignment="Top"
                 Command="{Binding RemoveTeam}"
                 Content="Remov Team"
-                ToolTip="Team can delete if his not played in any champ" />
+                ToolTip="Team can delete if his not played in any season" />
         <Grid Width="164"
               Height="174"
               Margin="246,296,0,0"
               HorizontalAlignment="Left"
-              VerticalAlignment="Top" >
+              VerticalAlignment="Top">
 
             <!--<nmsp:UserControl1/>-->
         </Grid>

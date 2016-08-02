@@ -49,17 +49,16 @@ namespace Server
                 });
                 db.SaveChanges();
 
-                var champ = db.Championships.Add(new Championship());
-                champ.Id = Guid.NewGuid();
-                champ.Name = "Ukrainian champ";
-                champ.Year = DateTime.Today;
-                db.Championships.Add(champ);
+                var season = db.Seasons.Add(new Season());
+                season.Id = Guid.NewGuid();
+                season.Name = "1999";
+                db.Seasons.Add(season);
                 db.SaveChanges();
 
                 db.Tours.Add(new Tour()
                 {
                     Id = Guid.NewGuid(),
-                    Championship = db.Championships.ToList().Find(item => item.Name == "Ukrainian champ")
+                    Season = db.Seasons.ToList().Find(item => item.Name == "1999")
                 });
 
                 db.SaveChanges();

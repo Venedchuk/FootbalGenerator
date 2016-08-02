@@ -35,41 +35,39 @@ namespace WpfRedactor
         private void MainWindowRedactorViewModelConstruct()
         {
  
-            Champs = new ObservableCollection<SimpleChampionshipClient>();
+            Seasons = new ObservableCollection<SimpleSeasonsClient>();
 
                 Teams = new ObservableCollection<SimpleTeamClient>(GetAllTeamsToShow());
 
             
             SelectedTeam = new SimpleTeamClient();
 
-            Champs = GetAllChamp();
+            Seasons = GetAllSeasons();
         }
 
         public string AddTeamName { get; set; }
         public string AddPlayerName { get; set; }
         public int AddPlayerAge { get; set; }
         public string AddTeamCountry { get; set; }
-        public string AddChampName { get; set; }
-        public DateTime AddChampDate { get; set; }
+        public string AddSeasonName { get; set; }
         public BitmapImage ImageTeam { get; set; }
 
 
-        private ObservableCollection<SimpleChampionshipClient> GetAllChamp()
+        private ObservableCollection<SimpleSeasonsClient> GetAllSeasons()
         {
-            var champs = Channel.GetChampionships();
+            var seasons = Channel.GetSeasons();
 
 
 
-            foreach (var itemChamp in champs)
+            foreach (var itemSeason in seasons)
             {
-                Champs.Add(new SimpleChampionshipClient()
+                Seasons.Add(new SimpleSeasonsClient()
                 {
-                    Id = itemChamp.Id,
-                    Name = itemChamp.Name,
-                    Year = itemChamp.Year
+                    Id = itemSeason.Id,
+                    Name = itemSeason.Name,
                 });
             }
-            return Champs;
+            return Seasons;
         }
 
         private static ObservableCollection<SimpleTeamClient> GetAllTeamsToShow()
@@ -150,22 +148,22 @@ namespace WpfRedactor
             }
         }
 
-        private RelayCommand _deleteChamp;
+        private RelayCommand _deleteSeason;
 
-        public RelayCommand DeleteChamp
+        public RelayCommand DeleteSeason
         {
             get
             {
-                return _deleteChamp ?? (_deleteChamp = new RelayCommand(() =>
+                return _deleteSeason ?? (_deleteSeason = new RelayCommand(() =>
                 {
 
-                    Channel.RemoveChamp(SelectedChamp.Id);
+                    Channel.RemoveSeason(SelectedSeason.Id);
 
-                    RaisePropertyChanged("SelectedChamp");
+                    RaisePropertyChanged("SelectedSeason");
                     MainWindowRedactorViewModelConstruct();
 
                 }
-                    , () => (SelectedChamp != null)));
+                    , () => (SelectedSeason != null)));
 
 
             }
@@ -206,26 +204,25 @@ namespace WpfRedactor
             }
         }
 
-        private RelayCommand _addChamp;
+        private RelayCommand _addSeason;
 
-        public RelayCommand AddChamp
+        public RelayCommand AddSeason
         {
             get
             {
-                return _addChamp ?? (_addChamp = new RelayCommand(() =>
+                return _addSeason ?? (_addSeason = new RelayCommand(() =>
                 {
-                    AddChampInfo = "Added Champ: " + AddChampName;
-                    Channel.AddChampionship(new Championship()
+                    AddSeasonInfo = "Added Season: " + AddSeasonName;
+                    Channel.AddSeason(new Season()
                     {
-                        Name = AddChampName,
-                        Year = AddChampDate
+                        Name = AddSeasonName,
                     });
 
-                    RaisePropertyChanged("AddChampInfo");
+                    RaisePropertyChanged("AddSeasonInfo");
                     MainWindowRedactorViewModelConstruct();
 
                 }
-                    , () => (AddChampName != null && AddChampDate.Year > 1980)));
+                    , () => (AddSeasonName != null)));
 
 
             }
@@ -300,17 +297,17 @@ namespace WpfRedactor
             }
         }
 
-        private string _addChampInfo;
+        private string _addSeasonInfo;
 
-        public string AddChampInfo
+        public string AddSeasonInfo
         {
-            get { return _addChampInfo; }
+            get { return _addSeasonInfo; }
             set
             {
-                if (_addChampInfo == value) return;
-                _addChampInfo = value;
+                if (_addSeasonInfo == value) return;
+                _addSeasonInfo = value;
 
-                RaisePropertyChanged("AddChampInfo");
+                RaisePropertyChanged("AddSeasonInfo");
 
             }
         }
@@ -345,17 +342,17 @@ namespace WpfRedactor
             }
         }
 
-        private SimpleChampionshipClient _selectedChamp;
+        private SimpleSeasonsClient _selectedSeason;
 
-        public SimpleChampionshipClient SelectedChamp
+        public SimpleSeasonsClient SelectedSeason
         {
-            get { return _selectedChamp; }
+            get { return _selectedSeason; }
 
             set
             {
-                if (_selectedChamp == value) return;
-                _selectedChamp = value;
-                RaisePropertyChanged("SelectedChamp");
+                if (_selectedSeason == value) return;
+                _selectedSeason = value;
+                RaisePropertyChanged("SelectedSeason");
 
             }
         }
@@ -375,19 +372,19 @@ namespace WpfRedactor
             }
         }
 
-        private ObservableCollection<SimpleChampionshipClient> _champs;
+        private ObservableCollection<SimpleSeasonsClient> _seasons;
 
-        public ObservableCollection<SimpleChampionshipClient> Champs
+        public ObservableCollection<SimpleSeasonsClient> Seasons
         {
 
-            get { return _champs; }
+            get { return _seasons; }
 
             set
             {
-                if (_champs == value) return;
-                _champs = value;
-                RaisePropertyChanged("Champs");
-                AddChampName = null;
+                if (_seasons == value) return;
+                _seasons = value;
+                RaisePropertyChanged("Seasons");
+                AddSeasonName = null;
             }
         }
 
