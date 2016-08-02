@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="WpfRedactor.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfRedactor"
+             mc:Ignorable="d" Height="196.842" Width="150.526">
+    <Grid 
+        x:Name="AddPlayerCopy"
+                  Width="146"
+                  Height="207"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  ShowGridLines="True">
+
+        <Label x:Name="Label2"
+                       Width="79"
+                       Height="35"
+                       Margin="10,0,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="Add Team" FontFamily="Segoe Print" />
+        <local:TextBoxWithClear x:Name="TextBox4"
+                                       Width="123"
+                                       Height="22"
+                                       Margin="10,49,0,0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Text="{Binding AddTeamName}"
+                                       TextWrapping="Wrap" />
+        <local:TextBoxWithClear x:Name="TextBox5"
+                                       Width="123"
+                                       Height="24"
+                                       Margin="10,76,0,0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Text="{Binding AddTeamCountry}"
+                                       TextWrapping="Wrap" />
+        <Button x:Name="Button2"
+                        Width="69"
+                        Height="23"
+                        Margin="10,142,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Command="{Binding AddTeam}"
+                        Content="Save" />
+        <Label x:Name="AddTeaminfo2"
+                       Width="155"
+                       Height="76"
+                       Margin="0,170,-9,-39"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="{Binding AddTeamInfo}"
+                       FontFamily="Segoe Print"
+                       Foreground="#FFFF0B0B" />
+        <CheckBox x:Name="CheckBox1"
+                          Margin="10,105,0,0"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Content="I agree" />
+        <Image x:Name="image"
+                       Width="28"
+                       Height="24"
+                       Margin="110,5,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Source="{Binding ImageTeam}" />
+        <Button Width="26"
+                        Height="23"
+                        Margin="110,142,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Command="{Binding OpenImg}"
+                        Content="Img" />
+    </Grid>
+</UserControl>
