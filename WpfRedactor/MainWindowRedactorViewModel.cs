@@ -186,7 +186,7 @@ namespace WpfRedactor
                 };
 
                     if (ImageTeam == null)
-                        team.ImageTeam = ImageToByteArray(BitmapImage2Bitmap(new BitmapImage(new Uri("D:/S.jpg"))));
+                        team.ImageTeam = ImageToByteArray(BitmapImage2Bitmap(new BitmapImage(new Uri("B:/FootbalGenerator/S.jpg"))));
                     else
                     {
                         team.ImageTeam = ImageToByteArray(BitmapImage2Bitmap(ImageTeam));
@@ -428,7 +428,7 @@ namespace WpfRedactor
                     {
                     var bit = new Bitmap(30,30);
                         if (open.FileName=="")
-                        bit = new Bitmap(open.FileName = @"D:\S.jpg");
+                        bit = new Bitmap(open.FileName = @"B:\FotbalGenerator\S.jpg");
                         else
                          bit = new Bitmap(open.FileName);
                         return bit;

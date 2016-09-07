@@ -213,6 +213,7 @@ namespace Server
                     {
                         foreach (var player in db.Players)
                         {
+                            
                             if (player.Team.Id == guid)
                             {
                                 db.Players.Remove(player);
