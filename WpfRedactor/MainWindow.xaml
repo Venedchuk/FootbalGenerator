@@ -138,9 +138,9 @@
                         Command="{Binding AddPlayer}"
                         Content="Save" />
                 <Label x:Name="AddPlayerinfo1"
-                       Width="146"
+                       Width="164"
                        Height="54"
-                       Margin="143,152,0,0"
+                       Margin="143,152,-18,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Content="{Binding InfoAddPlayer,
@@ -198,9 +198,9 @@
                         Command="{Binding AddTeam}"
                         Content="Save" />
                 <Label x:Name="AddTeaminfo2"
-                       Width="155"
-                       Height="76"
-                       Margin="0,170,-9,-39"
+                       Width="166"
+                       Height="80"
+                       Margin="-5,170,-15,-43"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        Content="{Binding AddTeamInfo}"

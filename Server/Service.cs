@@ -211,7 +211,7 @@ namespace Server
                 {
                     if (db.Players != null && playerdel == false)
                     {
-                        foreach (var player in db.Players)
+                        foreach (var player in db.Players.Include(x => x.Team))
                         {
                             
                             if (player.Team.Id == guid)
@@ -590,9 +590,26 @@ namespace Server
                     сhampToReturn.Add(season);
                 }
                 return сhampToReturn;
+            }
+        }
 
+        public bool ExistTour(Guid SeasonId)
+        {
+            using (var db = new ConnectToDb())
+            {
+                foreach (var item in db.Seasons.Include(x=>x.Tours))
+                {
+                    if (item.Id == SeasonId)
+                    {
+                        if (item.Tours.Count==0)
+                        {
+                            return false;
+                        }
+                    }
+                }
 
             }
+                return true;
         }
 
     public void StopServer()

@@ -33,7 +33,7 @@
         </Label>
         <Button x:Name="GenerateTour"
                 Width="76"
-                Margin="25,122,0,0"
+                Margin="224,134,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Command="{Binding GenerateTour}"
@@ -144,9 +144,9 @@
                         <Image Height="20" Source="{Binding HomeBitmapImage}" />
                         <TextBlock Text="{Binding Path=Home}" />
                         <TextBlock Text=" " />
-                        <TextBlock Text="{Binding Path=HomeTeamGoals}" />
+                        <TextBox Text="{Binding Path=HomeTeamGoals}" />
                         <TextBlock Text=" - " />
-                        <TextBlock Text="{Binding Path=GuestTeamGoals}" />
+                        <TextBox Text="{Binding Path=GuestTeamGoals}" />
                         <TextBlock Text=" " />
                         <TextBlock Text="{Binding Path=Guest}" />
                         <Image Height="20" Source="{Binding GuestBitmapImage}" />

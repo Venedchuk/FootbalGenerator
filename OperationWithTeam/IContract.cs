@@ -69,6 +69,9 @@ namespace OperationWithTeams
         [OperationContract]
         List<SimpleSeason> GetSeasons();
 
+        [OperationContract]
+        bool ExistTour(Guid Season);
+
 
     }
 }

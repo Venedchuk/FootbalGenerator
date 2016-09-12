@@ -242,12 +242,11 @@ namespace WPFClient
             {
                 return _generateTour ?? (_generateTour = new RelayCommand(() =>
                 {
-                   
-                    GoGenerate(SelectedSeasons.Id);
-
-
+                    {
+                        GoGenerate(SelectedSeasons.Id);
+                    }
                 }
-                , () =>TeamsToGenerate.Count>1));
+                , () =>(TeamsToGenerate.Count>1&&SelectedSeasons!=null&&SelectedSeasons.Tours.Count==0)));
 
                 // SelectedSeasons.Tours.Count == 0 && 
             }
