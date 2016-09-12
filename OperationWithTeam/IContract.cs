@@ -67,10 +67,10 @@ namespace OperationWithTeams
         List<SimpleMatch> GetMatches(Guid tourGuid);
 
         [OperationContract]
-        List<SimpleSeason> GetSeasons();
+        List<SimpleSeason> GetSeasons(Guid ChampionshipId);
 
         [OperationContract]
-        bool ExistTour(Guid Season);
+        List<SimpleChampionship> GetAllChampionships();
 
 
     }

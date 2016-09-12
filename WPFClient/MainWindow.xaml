@@ -14,8 +14,8 @@
         <local:MainWindowViewModel />
     </Window.DataContext>
 
- 
-    
+
+
     <Grid Margin="0,0,2,9">
 
         <Label x:Name="Label"
@@ -121,7 +121,7 @@
         <TreeView x:Name="TreeView1"
                   Width="218"
                   Height="215"
-                  Margin="82,165,0,0"
+                  Margin="122,159,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding Path=SelectedSeasons.Tours}"
@@ -155,6 +155,17 @@
                 </HierarchicalDataTemplate>
 
             </TreeView.Resources>
+        </TreeView>
+        <TreeView 
+            x:Name="treeView"
+            HorizontalAlignment="Left"
+            Height="215"
+            Margin="10,159,0,0"
+            VerticalAlignment="Top"
+            Width="139"
+            ItemsSource="{Binding Path=Seasons}">
+            
+            
         </TreeView>
         <DataGrid x:Name="ResultTable1_Copy"
                   Width="90"
@@ -313,6 +324,7 @@
                      TextWrapping="Wrap" />
 
         </Grid>
+
 
 
 

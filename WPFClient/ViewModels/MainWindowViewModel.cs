@@ -21,6 +21,7 @@ namespace WPFClient
       //  private List<Match> globalContainerMatches = new List<Match>();
         private List<Match> container = new List<Match>();
         private List<Match> _containerTour = new List<Match>();
+        public ObservableCollection<SimpleChampionshipClient> Championships { get; set; }
         public ObservableCollection<SimpleSeasonsClient> Seasons { get; set; }
         public ObservableCollection<SimpleTourClient> Tours { get; set; }
         public ObservableCollection<SimpleTeam> TeamsToGenerate { get; set; }
@@ -39,14 +40,16 @@ namespace WPFClient
             var factory = new ChannelFactory<IContract>(binding, new EndpointAddress(adress));
             channel = factory.CreateChannel();
             Seasons = new ObservableCollection<SimpleSeasonsClient>();
+            Championships = new ObservableCollection<SimpleChampionshipClient>();
            
             TeamsToGenerate = new ObservableCollection<SimpleTeam>();
             Teams = new ObservableCollection<SimpleTeam>(channel.GetAllTeam());
             SelectedTeam = new SimpleTeam();
             SelectedTeamToGenerate = new SimpleTeam();
             Tours = new ObservableCollection<SimpleTourClient>();
-            Seasons = GetAllSeasons();
+            Seasons = GetSelectedSeasons();
             //SelectedSeasons = Seasons[0];
+           // Championships = GetAllChampionships();
             dataGrid = new DataGrid();
             dataGridPoint = new DataGrid();
         }
@@ -54,7 +57,7 @@ namespace WPFClient
         private void MainWindowViewModelConstructor()
         {
             Seasons.Clear();
-            Seasons = GetAllSeasons();
+            Seasons = GetSelectedSeasons();
 
         }
 
@@ -81,11 +84,10 @@ namespace WPFClient
         }
 
 
-
-        private ObservableCollection<SimpleSeasonsClient> GetAllSeasons()
+        private ObservableCollection<SimpleSeasonsClient> GetSelectedSeasons()
         {
-            
-            var seasons = channel.GetSeasons();
+            var championships = channel.GetAllChampionships();
+            var seasons = channel.GetSeasons(Guid.NewGuid());//alert!!!!!!!1
 
             foreach (var itemSeason in seasons)
             {

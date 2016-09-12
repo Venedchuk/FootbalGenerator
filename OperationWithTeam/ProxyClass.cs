@@ -64,6 +64,20 @@ namespace OperationWithTeams
     }
 
     [DataContract]
+    public class SimpleChampionship
+    {
+        [DataMember]
+        public Guid Id { get; set; }
+
+        [DataMember]
+        public string Name { get; set; }
+
+        [DataMember]
+        public List<Guid> SeasonGuids { get; set; }
+
+    }
+
+    [DataContract]
     public class SimpleTeam
     {
         [DataMember]

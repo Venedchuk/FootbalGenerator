@@ -520,6 +520,7 @@ namespace Server
             Console.WriteLine("Get All Matches");
             using (var db = new ConnectToDb())
             {
+                
                 if (!db.Matches.Any()) return new List<SimpleMatch>();
                 var matches = db.Matches;
                 var matchesToReturn = new List<SimpleMatch>();
@@ -557,12 +558,16 @@ namespace Server
 
         }
 
-        public List<SimpleSeason> GetSeasons()
+        public List<SimpleSeason> GetSeasons(Guid ChampionshipId)
         {
             Console.WriteLine("Get All Matches");
+
+             
            
             using (var db = new ConnectToDb())
             {
+
+
                 try
                 {
                     db.Seasons.Include(x => x.Tours).ToList();
@@ -572,44 +577,45 @@ namespace Server
 
                     return new List<SimpleSeason>();
                 }
-               
-                var сhampToReturn = new List<SimpleSeason>();
-                foreach (var item in db.Seasons.Include(x => x.Tours).ToList())
+                 
+                var seasonToReturn = new List<SimpleSeason>();
+                
                 {
-                    var listTour = new List<Guid>();
-                    foreach (var itm in item.Tours)
+
+
+                    foreach (var item in db.Seasons.Include(x => x.Tours).Include(x => x.Championship).ToList())
                     {
-                        listTour.Add(itm.Id);
+
+                        var listTour = new List<Guid>();
+                        foreach (var itm in item.Tours)
+                        {
+                            listTour.Add(itm.Id);
+                        }
+                        var season = new SimpleSeason()
+                        {
+                            Name = item.Name,
+                            Id = item.Id,
+                            TourGuids = listTour
+                        };
+                        seasonToReturn.Add(season);
                     }
-                    var season = new SimpleSeason()
-                    {
-                        Name = item.Name,
-                        Id = item.Id,
-                        TourGuids = listTour
-                    };
-                    сhampToReturn.Add(season);
                 }
-                return сhampToReturn;
+                return seasonToReturn;
             }
         }
 
-        public bool ExistTour(Guid SeasonId)
-        {
-            using (var db = new ConnectToDb())
-            {
-                foreach (var item in db.Seasons.Include(x=>x.Tours))
-                {
-                    if (item.Id == SeasonId)
-                    {
-                        if (item.Tours.Count==0)
-                        {
-                            return false;
-                        }
-                    }
-                }
+      
 
+        public List<SimpleChampionship> GetAllChampionships()
+        {
+            using(var db = new ConnectToDb())
+            {
+                var Champs = db.Championships.Include(x => x.Seasons);
+                
+
+                return new List<SimpleChampionship>();    
             }
-                return true;
+            
         }
 
     public void StopServer()

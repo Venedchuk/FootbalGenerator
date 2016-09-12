@@ -7,6 +7,19 @@ using System.Runtime.Serialization;
 namespace OperationWithTeams
 {
 
+    [DataContract]
+    public class Championship
+    {
+        [DataMember]
+        public Guid Id { get; set; }
+
+        [DataMember]
+        public string Name { get; set; }
+
+        [DataMember]
+        public virtual List<Season> Seasons { get; set; }
+    }
+
 
     [DataContract]
     public class Season
@@ -17,9 +30,11 @@ namespace OperationWithTeams
         [DataMember]
         public string Name { get; set; }
 
-
         [DataMember]
         public virtual List<Tour> Tours { get; set; }
+
+        [DataMember]
+        public virtual Championship Championship { get; set; }
 
         [DataMember]
         public virtual List<TeamList> TeamGuids { get; set; }

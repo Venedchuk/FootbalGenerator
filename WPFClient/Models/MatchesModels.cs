@@ -56,7 +56,15 @@ namespace WPFClient.Models
     public class SimpleSeasonsClient : ObservableObject
     {
         public Guid Id { get; set; }
+        public Guid ChampionshipId { get; set; }
         public string Name { get; set; }
         public ObservableCollection<SimpleTourClient> Tours { get; set; }
     }
+    public class SimpleChampionshipClient : ObservableObject
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public ObservableCollection<SimpleSeasonsClient> Seasons { get; set; }
+    }
+
 }
