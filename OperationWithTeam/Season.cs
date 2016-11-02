@@ -9,7 +9,7 @@ namespace OperationWithTeams
 
     [DataContract]
     public class Championship
-    {
+    {//not relised
         [DataMember]
         public Guid Id { get; set; }
 
