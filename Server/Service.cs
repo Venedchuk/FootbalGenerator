@@ -558,7 +558,7 @@ namespace Server
 
         }
 
-        public List<SimpleSeason> GetSeasons(Guid ChampionshipId)
+        public List<SimpleSeason> GetSeasons()
         {
             Console.WriteLine("Get All Matches");
 

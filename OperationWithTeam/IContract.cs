@@ -67,7 +67,7 @@ namespace OperationWithTeams
         List<SimpleMatch> GetMatches(Guid tourGuid);
 
         [OperationContract]
-        List<SimpleSeason> GetSeasons(Guid ChampionshipId);
+        List<SimpleSeason> GetSeasons();
 
         [OperationContract]
         List<SimpleChampionship> GetAllChampionships();

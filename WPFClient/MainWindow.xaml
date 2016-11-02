@@ -119,9 +119,9 @@
 
 
         <TreeView x:Name="TreeView1"
-                  Width="218"
+                  Width="275"
                   Height="215"
-                  Margin="122,159,0,0"
+                  Margin="25,159,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding Path=SelectedSeasons.Tours}"
@@ -156,7 +156,7 @@
 
             </TreeView.Resources>
         </TreeView>
-        <TreeView 
+        <!-- <TreeView 
             x:Name="treeView"
             HorizontalAlignment="Left"
             Height="215"
@@ -167,6 +167,7 @@
             
             
         </TreeView>
+        -->
         <DataGrid x:Name="ResultTable1_Copy"
                   Width="90"
                   Height="174"

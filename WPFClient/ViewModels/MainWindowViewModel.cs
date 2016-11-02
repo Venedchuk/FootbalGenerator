@@ -87,7 +87,9 @@ namespace WPFClient
         private ObservableCollection<SimpleSeasonsClient> GetSelectedSeasons()
         {
             var championships = channel.GetAllChampionships();
-            var seasons = channel.GetSeasons(Guid.NewGuid());//alert!!!!!!!1
+            var seasons = channel.GetSeasons(
+               // Guid.NewGuid()
+                );//alert!!!!!!!1
 
             foreach (var itemSeason in seasons)
             {
