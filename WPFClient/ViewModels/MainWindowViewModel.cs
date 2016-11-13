@@ -58,7 +58,6 @@ namespace WPFClient
         {
             Seasons.Clear();
             Seasons = GetSelectedSeasons();
-
         }
 
 
@@ -96,9 +95,6 @@ namespace WPFClient
                 var toursToConvert = channel.GetAllTours(itemSeason.Id);
                 Tours = new ObservableCollection<SimpleTourClient>();
 
-
-
-
                 foreach (var item in toursToConvert)
                 {
                     var tourMatches = channel.GetMatches(item.Id);
@@ -129,8 +125,6 @@ namespace WPFClient
                     Tours.Add(tourinfo);
                    
                 }
-                
-
                 Seasons.Add(new SimpleSeasonsClient()
                 {
                     Id = itemSeason.Id,
@@ -154,9 +148,7 @@ namespace WPFClient
             {
                 if (_selectedMatch == value) return;
                 _selectedMatch = value;
-
                 RaisePropertyChanged("SelectedMatch");
-                   
             }
         }
 
@@ -169,9 +161,7 @@ namespace WPFClient
                 GuestTeamGoals = selectedMatch.GuestTeamGoals,
                 HomeTeamGoals = selectedMatch.HomeTeamGoals,
                 Id = selectedMatch.Id
-
             };
-
             return selMatch;
         }
         public static List<Team> ToTeam(ObservableCollection<SimpleTeam> selectedTeams)
@@ -179,17 +169,14 @@ namespace WPFClient
             var teams = new List<Team>();
             foreach (var item in selectedTeams)
             {
-                
                 var oneTeam = new Team()
                 {
                     Name = item.Name,
                     Id = item.Id,
                     Country = item.Country
-
                 };
                 teams.Add(oneTeam);
             }
-
             return teams;
         }
 
@@ -216,8 +203,6 @@ namespace WPFClient
                 },
                  () => Validation(SelectedTeam)
                 ));
-
-
             }
         }
 
@@ -234,8 +219,6 @@ namespace WPFClient
                 },
                 () => Validation(SelectedTeamToGenerate)
                 ));
-
-
             }
         }
 

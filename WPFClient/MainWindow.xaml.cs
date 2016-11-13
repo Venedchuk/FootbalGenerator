@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using WPFClient.Models;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace WPFClient
 {
@@ -18,9 +20,32 @@ namespace WPFClient
 
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
+        }
 
-            
+        private void templateForQuery(string Query)
+        {
+            string connectionString = GetConnectionString();
+
+            using (SqlConnection connection = new SqlConnection())
+            {
+                connection.ConnectionString = connectionString;
+
+                connection.Open();
+                SqlCommand cmd = connection.CreateCommand();
+                cmd.CommandText = Query;
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable("emp");
+                sda.Fill(dt);
+                var result = dt.DefaultView;
+
+                //  templateForQuery("SELECT Number, Number_spareniy_teleph FROM Telephone WHERE Telephone.Number_spareniy_teleph != ''"); example
+            }
+        }
+
+        private string GetConnectionString()
+        {
+            return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\andrii\FootbalMatchess.mdf;Integrated Security=True;Connect Timeout=30";
         }
 
         public void TableResult(Guid SeasonGuid)
@@ -115,7 +140,6 @@ namespace WPFClient
                 dataGridPoint.Items.Add(forP);
             }
         }
-
 
         private void TreeView1_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {

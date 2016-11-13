@@ -33,7 +33,7 @@
         </Label>
         <Button x:Name="GenerateTour"
                 Width="76"
-                Margin="224,134,0,0"
+                Margin="224,78,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Command="{Binding GenerateTour}"
@@ -121,7 +121,7 @@
         <TreeView x:Name="TreeView1"
                   Width="275"
                   Height="215"
-                  Margin="25,159,0,0"
+                  Margin="10,103,0,0"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding Path=SelectedSeasons.Tours}"
@@ -256,15 +256,15 @@
         <Button x:Name="button1"
                 Width="124"
                 Height="36"
-                Margin="25,418,0,0"
+                Margin="10,438,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="button1_Click"
                 Content="Show Table" />
 
         <Grid Width="325"
-              Height="96"
-              Margin="305,266,0,0"
+              Height="44"
+              Margin="305,222,0,0"
               HorizontalAlignment="Left"
               VerticalAlignment="Top">
             <Image x:Name="image"
@@ -325,6 +325,7 @@
                      TextWrapping="Wrap" />
 
         </Grid>
+        <Label x:Name="label" Content="Search all team Matches" HorizontalAlignment="Left" Margin="314,271,0,0" VerticalAlignment="Top" Height="34" Width="155"/>
 
 
 
