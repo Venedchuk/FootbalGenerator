@@ -21,7 +21,7 @@ namespace OperationWithTeams
 
         public virtual List<Player> Members { get; set; }
 
-        public virtual List<Match> Mathces { get; set; }
+       // public virtual List<Match> Mathces { get; set; }
     }
     public class ProductImage
     {

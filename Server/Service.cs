@@ -111,20 +111,22 @@ namespace Server
 
                 var teamsToReturn = new List<SimpleTeam>();
 
-               
-                foreach (var item in db.Teams)
+                if (db.Teams.Any())
                 {
-                    var teamToReturn = new SimpleTeam()
+                    foreach (var item in db.Teams)
                     {
-                        Id = item.Id,
-                        Country = item.Country,
-                        Name = item.Name,
-                        ImageTeam = item.ImageTeam
-                    };
+                        var teamToReturn = new SimpleTeam()
+                        {
+                            Id = item.Id,
+                            Country = item.Country,
+                            Name = item.Name,
+                            ImageTeam = item.ImageTeam
+                        };
 
 
-                    teamsToReturn.Add(teamToReturn);
+                        teamsToReturn.Add(teamToReturn);
 
+                    }
                 }
                 return teamsToReturn;
 

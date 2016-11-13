@@ -32,12 +32,12 @@
                    RenderTransformOrigin="0.288,0.562" />
         </Label>
         <Button x:Name="GenerateTour"
-                Width="76"
+                Width="81"
                 Margin="224,78,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Command="{Binding GenerateTour}"
-                Content="Generate TourForOperation" />
+                Content="Generate Tour" />
 
         <Button x:Name="ShowTeamButn"
                 Width="75"
@@ -325,7 +325,12 @@
                      TextWrapping="Wrap" />
 
         </Grid>
-        <Label x:Name="label" Content="Search all team Matches" HorizontalAlignment="Left" Margin="314,271,0,0" VerticalAlignment="Top" Height="34" Width="155"/>
+        <Grid HorizontalAlignment="Left" Height="208" Margin="305,266,0,0" VerticalAlignment="Top" Width="325">
+            <Label x:Name="label" Content="Search all team Matches" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="34" Width="155"/>
+            <TextBox x:Name="textBox" Height="23" Margin="170,10,21,0" TextWrapping="Wrap" Text="TeamName" VerticalAlignment="Top"/>
+            <Button x:Name="Find" Content="Find" HorizontalAlignment="Left" Margin="224,38,0,0" VerticalAlignment="Top" Width="80" Height="26" Click="button_Click"/>
+            <DataGrid x:Name="QueryResult" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Height="139" Width="305"/>
+        </Grid>
 
 
 

@@ -37,8 +37,8 @@ namespace WPFClient
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable("emp");
                 sda.Fill(dt);
-                var result = dt.DefaultView;
-
+              //  var result = 
+                QueryResult.ItemsSource = dt.DefaultView;
                 //  templateForQuery("SELECT Number, Number_spareniy_teleph FROM Telephone WHERE Telephone.Number_spareniy_teleph != ''"); example
             }
         }
@@ -160,6 +160,12 @@ namespace WPFClient
         {
             var dc = DataContext as MainWindowViewModel;
             TableResult(dc.SelectedSeasons.Id);
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            templateForQuery("SELECT * FROM Matches WHERE HomeId = '34845c06-58ed-40d9-a4bd-6a92caba17bc'");
+
         }
     }
     public class TeamForGrid
