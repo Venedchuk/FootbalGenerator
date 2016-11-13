@@ -448,7 +448,7 @@ namespace Server
         public void ChangeMatch(SimpleMatch match)
         {
             if (match == null) return;
-            Console.WriteLine("Change match: "+match.Home+" vs "+match.Guest);
+            Console.WriteLine("Read match: "+match.Home+" vs "+match.Guest);
             using (var db = new ConnectToDb())
             {
                 var res = db.Matches.Include(x => x.Result).ToList().Find(item => item.Id == match.Id);

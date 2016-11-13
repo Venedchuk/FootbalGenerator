@@ -37,10 +37,28 @@ namespace WPFClient
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable("emp");
                 sda.Fill(dt);
-              //  var result = 
+                
+                // var result = dt.DefaultView;
+                //var a = dt.DefaultView;
+                string IdTeam = dt.Rows[0].ItemArray[0].ToString();//get id from Teams table
+                
+                //var d= dt.Select("id");
+                //d.ToString();
+                cmd.CommandText = "SELECT * FROM Matches WHERE HomeId ='"+IdTeam+"'";
+                sda = new SqlDataAdapter(cmd);
+                dt = new DataTable("emp");
+                sda.Fill(dt);
                 QueryResult.ItemsSource = dt.DefaultView;
                 //  templateForQuery("SELECT Number, Number_spareniy_teleph FROM Telephone WHERE Telephone.Number_spareniy_teleph != ''"); example
+
             }
+        }
+
+        private void FillQueryResult(DataView dv)
+        {
+
+            QueryResult.ItemsSource = dv;
+
         }
 
         private string GetConnectionString()
@@ -159,12 +177,15 @@ namespace WPFClient
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             var dc = DataContext as MainWindowViewModel;
+            if(dc.SelectedSeasons!=null)
             TableResult(dc.SelectedSeasons.Id);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            templateForQuery("SELECT * FROM Matches WHERE HomeId = '34845c06-58ed-40d9-a4bd-6a92caba17bc'");
+
+            var team = TeamQuery.Text;
+            templateForQuery("SELECT Id FROM Teams WHERE Name = '"+team+"'");
 
         }
     }
