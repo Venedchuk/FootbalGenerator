@@ -9,6 +9,8 @@ using System.Windows.Data;
 using WPFClient.Models;
 using System.Data.SqlClient;
 using System.Data;
+using OperationWithTeams;
+using System.ServiceModel;
 
 namespace WPFClient
 {
@@ -17,14 +19,20 @@ namespace WPFClient
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        private static IContract Channel;
         public MainWindow()
         {
-            InitializeComponent(); 
-        }
 
+            InitializeComponent();
+        }
+        
         private void templateForQuery(string Query)
         {
+            var adress = new Uri("http://localhost:8000/IContract");
+            var binding = new BasicHttpBinding();
+            var factory = new ChannelFactory<IContract>(binding, new EndpointAddress(adress));
+            Channel = factory.CreateChannel();
+
             string connectionString = GetConnectionString();
 
             using (SqlConnection connection = new SqlConnection())
@@ -40,16 +48,17 @@ namespace WPFClient
                 
                 // var result = dt.DefaultView;
                 //var a = dt.DefaultView;
-                string IdTeam = dt.Rows[0].ItemArray[0].ToString();//get id from Teams table
-                
-                //var d= dt.Select("id");
-                //d.ToString();
-                cmd.CommandText = "SELECT * FROM Matches WHERE HomeId ='"+IdTeam+"'";
-                sda = new SqlDataAdapter(cmd);
-                dt = new DataTable("emp");
-                sda.Fill(dt);
-                QueryResult.ItemsSource = dt.DefaultView;
-                //  templateForQuery("SELECT Number, Number_spareniy_teleph FROM Telephone WHERE Telephone.Number_spareniy_teleph != ''"); example
+                Guid IdTeam = (Guid)dt.Rows[0].ItemArray[0];//get id from Teams table
+                Channel.GetAllTeamStr();
+                var result = Channel.GetMatchesOneTeam(IdTeam);
+
+                QueryResult.ItemsSource = result.DefaultView;
+                //cmd.CommandText = "SELECT * FROM Matches WHERE HomeId ='"+IdTeam+"'";
+                //sda = new SqlDataAdapter(cmd);
+                //dt = new DataTable("emp");
+                //sda.Fill(dt);
+                //QueryResult.ItemsSource = dt.DefaultView;
+
 
             }
         }

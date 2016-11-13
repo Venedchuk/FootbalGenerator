@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using OperationWithTeams;
+using System.Data;
 // ReSharper disable CheckNamespace
 
 
@@ -36,6 +37,7 @@ namespace Server
         public DbSet<Goal> Goals { get; set; }
         public DbSet<TeamList> TeamLists { get; set; }
         public DbSet<Championship> Championships { get; set; }
+        public DataTable DataTables { get; set; }
 
     }
 }

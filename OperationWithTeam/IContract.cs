@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ServiceModel;
-
+using System.Data;
 
 namespace OperationWithTeams
 {
@@ -65,6 +65,9 @@ namespace OperationWithTeams
 
         [OperationContract]
         List<SimpleMatch> GetMatches(Guid tourGuid);
+
+        [OperationContract]
+        DataTable GetMatchesOneTeam(Guid teamId);
 
         [OperationContract]
         List<SimpleSeason> GetSeasons();
