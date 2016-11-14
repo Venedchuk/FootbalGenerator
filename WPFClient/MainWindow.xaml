@@ -327,7 +327,17 @@
         </Grid>
         <Grid HorizontalAlignment="Left" Height="208" Margin="305,266,0,0" VerticalAlignment="Top" Width="325">
             <Label x:Name="label" Content="Search all team Matches" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="34" Width="155"/>
-            <TextBox x:Name="TeamQuery" Height="23" Margin="170,10,21,0" TextWrapping="Wrap" Text="Team1" VerticalAlignment="Top"/>
+            <ComboBox x:Name="TeamQuery"
+                      Height="23"
+                      Margin="170,10,21,0"
+                      Text="Team1"
+                      VerticalAlignment="Top"
+                      ItemsSource="{Binding Path=TeamsForExams}"
+                     />
+            <!--
+                SelectedItem="{Binding Path=TeamsForExamsSelected}"
+                -->
+                      
             <Button x:Name="Find" Content="Find" HorizontalAlignment="Left" Margin="224,38,0,0" VerticalAlignment="Top" Width="80" Height="26" Click="button_Click"/>
             <TextBox x:Name="QueryResult" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Height="139" Width="305"/>
         </Grid>

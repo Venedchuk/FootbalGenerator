@@ -198,8 +198,8 @@ namespace WPFClient
         private void button_Click(object sender, RoutedEventArgs e)
         {
 
-            var team = TeamQuery.Text;
-            templateForQuery("SELECT Id FROM Teams WHERE Name = '"+team+"'");
+            var team = TeamQuery.SelectedItem;
+            templateForQuery("SELECT Id FROM Teams WHERE Name = '"+ team + "'");
 
         }
     }
