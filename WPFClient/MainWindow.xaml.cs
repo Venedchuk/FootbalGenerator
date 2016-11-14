@@ -45,14 +45,19 @@ namespace WPFClient
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable("emp");
                 sda.Fill(dt);
-                
+
                 // var result = dt.DefaultView;
                 //var a = dt.DefaultView;
                 Guid IdTeam = (Guid)dt.Rows[0].ItemArray[0];//get id from Teams table
                 Channel.GetAllTeamStr();
-                var result = Channel.GetMatchesOneTeam(IdTeam);
+                QueryResult.Text = "";
+                QueryResult.Text = String.Join(Environment.NewLine,Channel.GetMatchesOneTeam(IdTeam));
+                
+                  // result = Channel.GetMatchesOneTeam(IdTeam);
 
-                QueryResult.ItemsSource = result.DefaultView;
+              //  QueryResult.ItemsSource = result;
+
+
                 //cmd.CommandText = "SELECT * FROM Matches WHERE HomeId ='"+IdTeam+"'";
                 //sda = new SqlDataAdapter(cmd);
                 //dt = new DataTable("emp");
@@ -66,7 +71,7 @@ namespace WPFClient
         private void FillQueryResult(DataView dv)
         {
 
-            QueryResult.ItemsSource = dv;
+           // QueryResult.ItemsSource = dv;
 
         }
 

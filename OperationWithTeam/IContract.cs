@@ -67,7 +67,7 @@ namespace OperationWithTeams
         List<SimpleMatch> GetMatches(Guid tourGuid);
 
         [OperationContract]
-        DataTable GetMatchesOneTeam(Guid teamId);
+        List<string> GetMatchesOneTeam(Guid teamId);
 
         [OperationContract]
         List<SimpleSeason> GetSeasons();

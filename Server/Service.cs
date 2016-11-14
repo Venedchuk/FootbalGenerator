@@ -560,32 +560,38 @@ namespace Server
             }
 
         }
-        public DataTable GetMatchesOneTeam(Guid teamId)
+
+        public List<string> GetMatchesOneTeam(Guid teamId)
         {
             Console.WriteLine("Get All Matches one team");
-            var DataTable = new DataTable();
+            var teamString = new List<string>();
 
             using (var db = new ConnectToDb())
             {
                // if (!db.Matches.Any()) return new DataTable();
                 var matches = db.Matches.Include(x => x.Home).Include(x => x.Guest).Include(x => x.Result).Include(x => x.Tour).Include(x =>x.Tour.Season);
-                DataTable.Columns.Add("Opponent");
-                DataTable.Columns.Add("Result");
-                DataTable.Columns.Add("Tour");
-                DataRow row = DataTable.NewRow();
+                //DataTable.Columns.Add("Opponent");
+                //DataTable.Columns.Add("Result");
+                //DataTable.Columns.Add("Tour");
+                //DataRow row = DataTable.NewRow();
+
+                
                 foreach (var item in matches)
                 {
+                   
                     if (item.HomeId == teamId)
                     {
-                        row = DataTable.NewRow();
-                        row["Opponent"] = item.Guest.Name;
-                        row["Result"] = item.Result.HomeTeamGoals + " " + item.Result.GuestTeamGoals;
-                        row["Tour"] = item.Tour.NameTour;
-                        DataTable.Rows.Add(row);
+                        teamString.Add("Opponent:"+item.Guest.Name + " Result"+ item.Result.HomeTeamGoals + ":" + item.Result.GuestTeamGoals + " Tour:" + item.Tour.NameTour);
+                       /* row = new string[2];
+                        row[0] = item.Guest.Name;
+                        row[1] = item.Result.HomeTeamGoals + " " + item.Result.GuestTeamGoals;
+                        row[2] = item.Tour.NameTour;
+                        DataTable.Add(row);
+                        */
                     }
                 }
             }
-                return DataTable;
+                return teamString;
         }
 
 

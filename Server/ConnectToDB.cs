@@ -37,7 +37,6 @@ namespace Server
         public DbSet<Goal> Goals { get; set; }
         public DbSet<TeamList> TeamLists { get; set; }
         public DbSet<Championship> Championships { get; set; }
-        public DataTable DataTables { get; set; }
 
     }
 }
