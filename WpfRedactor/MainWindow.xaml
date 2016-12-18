@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:nmsp="clr-namespace:WpfRedactor"
+        mc:Ignorable="d"
         Title="Redactor"
         Width="719"
-        Height="536"
-        mc:Ignorable="d">
+        Height="536">
     <Window.Resources />
     <Window.DataContext>
         <nmsp:MainWindowRedactorViewModel />

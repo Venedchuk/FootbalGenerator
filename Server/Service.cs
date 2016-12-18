@@ -397,13 +397,13 @@ namespace Server
             Console.WriteLine("Add Match Goal");
             using (var db = new ConnectToDb())
             {
-                var matches = db.Matches;
+                var matches = db.Matches.Include(x=>x.Result);
                 foreach (var item in matches)
                 {
                     if (item.Id == matchGuid)
                     {
-                        // item.HomeTeamGoals = goalTeam1;
-                        //  item.GuestTeamGoals = goalTeam2;
+                       //  item.Result.HomeTeamGoals = goalTeam1;
+                       //   item.Result.GuestTeamGoals = goalTeam2;
                         db.SaveChanges();
                         break;
                     }

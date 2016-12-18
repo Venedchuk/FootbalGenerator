@@ -53,17 +53,6 @@ namespace WPFClient
                 QueryResult.Text = "";
                 QueryResult.Text = String.Join(Environment.NewLine,Channel.GetMatchesOneTeam(IdTeam));
                 
-                  // result = Channel.GetMatchesOneTeam(IdTeam);
-
-              //  QueryResult.ItemsSource = result;
-
-
-                //cmd.CommandText = "SELECT * FROM Matches WHERE HomeId ='"+IdTeam+"'";
-                //sda = new SqlDataAdapter(cmd);
-                //dt = new DataTable("emp");
-                //sda.Fill(dt);
-                //QueryResult.ItemsSource = dt.DefaultView;
-
 
             }
         }
@@ -77,7 +66,7 @@ namespace WPFClient
 
         private string GetConnectionString()
         {
-            return @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\andrii\FootbalMatchess.mdf;Integrated Security=True;Connect Timeout=30";
+            return @"Data Source=METEOR\SQLEXPRESS;Initial Catalog=DbConnection;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         }
 
         public void TableResult(Guid SeasonGuid)
@@ -102,7 +91,7 @@ namespace WPFClient
             {
                 var column = new DataGridTextColumn();
                 column.Header = item.Name;
-                column.Width = 80;
+                column.Width = 50;
                 column.Binding = new Binding(item.Name);
                 dataGrid.Columns.Add(column);
             }
@@ -120,7 +109,7 @@ namespace WPFClient
                         {
                             if (match.HomeTeamGoals == null || match.GuestTeamGoals == null)
                             {
-                                helper.SetResult(t1, t2, TeamDataGridHelper.Result.NotPlayedYet);
+                                helper.SetResult(t1, t2, TeamDataGridHelper.Result.NPlayedYet);
                                 continue;
                             }
                             if (match.HomeTeamGoals == match.GuestTeamGoals)
@@ -193,14 +182,38 @@ namespace WPFClient
             var dc = DataContext as MainWindowViewModel;
             if(dc.SelectedSeasons!=null)
             TableResult(dc.SelectedSeasons.Id);
+            dataGrid.ColumnWidth = 15;
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
 
             var team = TeamQuery.SelectedItem;
+            if(team!=null)
             templateForQuery("SELECT Id FROM Teams WHERE Name = '"+ team + "'");
 
+        }
+
+        private void OnDataGridPrinting(object sender, RoutedEventArgs e)
+        {
+           var print = dataGrid;
+          //  var point = dataGridPoint.Columns[1];
+          //  dataGridPoint = new DataGrid();
+          //  point.Header = "Pointss";
+            //print.Columns.Add(point);
+        
+            System.Windows.Controls.PrintDialog Printdlg = new System.Windows.Controls.PrintDialog();
+            if ((bool)Printdlg.ShowDialog().GetValueOrDefault())
+            {
+                Size pageSize = new Size(Printdlg.PrintableAreaWidth+20, Printdlg.PrintableAreaHeight);
+                // sizing of the element.
+                
+                print.Measure(pageSize);
+                print.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
+                Printdlg.PrintVisual(print, Title);
+
+            }
         }
     }
     public class TeamForGrid
@@ -208,4 +221,5 @@ namespace WPFClient
         public string TeamGrid { get; set; }
         public int Point { get; set; }
     }
+
 }
