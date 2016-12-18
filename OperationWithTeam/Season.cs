@@ -68,7 +68,7 @@ namespace OperationWithTeams
         [DataMember]
         public virtual List<Match> Matches { get; set; }
     }
-
+    [DataContract]
     public class Match
     {
         public virtual Guid HomeId { get; set; }

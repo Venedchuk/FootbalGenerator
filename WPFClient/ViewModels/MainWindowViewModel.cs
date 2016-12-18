@@ -23,6 +23,7 @@ namespace WPFClient
         private List<Match> _containerTour = new List<Match>();
         public ObservableCollection<SimpleChampionshipClient> Championships { get; set; }
         public ObservableCollection<SimpleSeasonsClient> Seasons { get; set; }
+        public ObservableCollection<string> TeamsForExams { get; set; }
         public ObservableCollection<SimpleTourClient> Tours { get; set; }
         public ObservableCollection<SimpleTeam> TeamsToGenerate { get; set; }
         public ObservableCollection<SimpleTeam> Teams { get; set; }
@@ -31,7 +32,7 @@ namespace WPFClient
         public DataGrid dataGrid { get; set; }
         public DataGrid dataGridPoint { get; set; }
         private List<Team> teams = new List<Team>();
-        
+        public string SelectedTeamsForExams { get; set; }
 
         public MainWindowViewModel()
         {
@@ -41,23 +42,33 @@ namespace WPFClient
             channel = factory.CreateChannel();
             Seasons = new ObservableCollection<SimpleSeasonsClient>();
             Championships = new ObservableCollection<SimpleChampionshipClient>();
-           
+            TeamsForExams = new ObservableCollection<string>();
             TeamsToGenerate = new ObservableCollection<SimpleTeam>();
             Teams = new ObservableCollection<SimpleTeam>(channel.GetAllTeam());
             SelectedTeam = new SimpleTeam();
             SelectedTeamToGenerate = new SimpleTeam();
-            Tours = new ObservableCollection<SimpleTourClient>();
+            //SelectedTeamsForExams = new string();
+        Tours = new ObservableCollection<SimpleTourClient>();
             Seasons = GetSelectedSeasons();
             //SelectedSeasons = Seasons[0];
-           // Championships = GetAllChampionships();
-            dataGrid = new DataGrid();
+            // Championships = GetAllChampionships();
+            
+             dataGrid = new DataGrid();
             dataGridPoint = new DataGrid();
+
+            var teams = channel.GetAllTeam();
+            foreach (var item in teams)
+            {
+                TeamsForExams.Add(item.Name);
+            }
         }
 
         private void MainWindowViewModelConstructor()
         {
             Seasons.Clear();
             Seasons = GetSelectedSeasons();
+
+           
         }
 
 

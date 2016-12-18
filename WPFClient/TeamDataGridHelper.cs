@@ -13,14 +13,16 @@ namespace WPFClient
             Win,
             Lose,
             Tie,
-            NotPlayedYet
+            NPlayedYet
         }
 
         private DataGrid _dataGrid;
+       
         private Dictionary<SimpleTeam, IDictionary<string, object>> _team;
         
         public TeamDataGridHelper(DataGrid dataGrid)
         {
+            dataGrid.ColumnWidth= 40;
             this._dataGrid = dataGrid;
         }
 
@@ -79,7 +81,7 @@ namespace WPFClient
             if (_team[team1].ContainsKey(team2.Name))
                 return (Result)_team[team1][team2.Name];
 
-            return Result.NotPlayedYet;
+            return Result.NPlayedYet;
         }
 
         public void Render()
@@ -92,8 +94,9 @@ namespace WPFClient
                 foreach (var t2 in _team)
                 {
                     if (!_team[t.Key].ContainsKey(t2.Key.Name))
-                        SetResult(t.Key,t2.Key, Result.NotPlayedYet); 
+                        SetResult(t.Key,t2.Key, Result.NPlayedYet); 
                 }
+                
                 _dataGrid.Items.Add(t.Value);
 
             }

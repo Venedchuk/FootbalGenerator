@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using OperationWithTeams;
+using System.Data;
 // ReSharper disable CheckNamespace
 
 

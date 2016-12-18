@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using OperationWithTeams;
 using System.Drawing;
+using System.Data;
 
 // ReSharper disable once CheckNamespace
 namespace Server
@@ -82,7 +83,7 @@ namespace Server
 
 
 
-                foreach (var item in db.Teams)
+                foreach (var item in db.Teams.Include(x=>x.Members))
                 {
                     teamString.AppendLine("Name Team:" + item.Name);
 
@@ -111,20 +112,22 @@ namespace Server
 
                 var teamsToReturn = new List<SimpleTeam>();
 
-               
-                foreach (var item in db.Teams)
+                if (db.Teams.Any())
                 {
-                    var teamToReturn = new SimpleTeam()
+                    foreach (var item in db.Teams)
                     {
-                        Id = item.Id,
-                        Country = item.Country,
-                        Name = item.Name,
-                        ImageTeam = item.ImageTeam
-                    };
+                        var teamToReturn = new SimpleTeam()
+                        {
+                            Id = item.Id,
+                            Country = item.Country,
+                            Name = item.Name,
+                            ImageTeam = item.ImageTeam
+                        };
 
 
-                    teamsToReturn.Add(teamToReturn);
+                        teamsToReturn.Add(teamToReturn);
 
+                    }
                 }
                 return teamsToReturn;
 
@@ -394,13 +397,13 @@ namespace Server
             Console.WriteLine("Add Match Goal");
             using (var db = new ConnectToDb())
             {
-                var matches = db.Matches;
+                var matches = db.Matches.Include(x=>x.Result);
                 foreach (var item in matches)
                 {
                     if (item.Id == matchGuid)
                     {
-                        // item.HomeTeamGoals = goalTeam1;
-                        //  item.GuestTeamGoals = goalTeam2;
+                       //  item.Result.HomeTeamGoals = goalTeam1;
+                       //   item.Result.GuestTeamGoals = goalTeam2;
                         db.SaveChanges();
                         break;
                     }
@@ -446,7 +449,7 @@ namespace Server
         public void ChangeMatch(SimpleMatch match)
         {
             if (match == null) return;
-            Console.WriteLine("Change match: "+match.Home+" vs "+match.Guest);
+            Console.WriteLine("Read match: "+match.Home+" vs "+match.Guest);
             using (var db = new ConnectToDb())
             {
                 var res = db.Matches.Include(x => x.Result).ToList().Find(item => item.Id == match.Id);
@@ -557,6 +560,40 @@ namespace Server
             }
 
         }
+
+        public List<string> GetMatchesOneTeam(Guid teamId)
+        {
+            Console.WriteLine("Get All Matches one team");
+            var teamString = new List<string>();
+
+            using (var db = new ConnectToDb())
+            {
+               // if (!db.Matches.Any()) return new DataTable();
+                var matches = db.Matches.Include(x => x.Home).Include(x => x.Guest).Include(x => x.Result).Include(x => x.Tour).Include(x =>x.Tour.Season);
+                //DataTable.Columns.Add("Opponent");
+                //DataTable.Columns.Add("Result");
+                //DataTable.Columns.Add("Tour");
+                //DataRow row = DataTable.NewRow();
+
+                
+                foreach (var item in matches)
+                {
+                   
+                    if (item.HomeId == teamId)
+                    {
+                        teamString.Add("Opponent:"+item.Guest.Name + " Result"+ item.Result.HomeTeamGoals + ":" + item.Result.GuestTeamGoals + " Tour:" + item.Tour.NameTour);
+                       /* row = new string[2];
+                        row[0] = item.Guest.Name;
+                        row[1] = item.Result.HomeTeamGoals + " " + item.Result.GuestTeamGoals;
+                        row[2] = item.Tour.NameTour;
+                        DataTable.Add(row);
+                        */
+                    }
+                }
+            }
+                return teamString;
+        }
+
 
         public List<SimpleSeason> GetSeasons()
         {
